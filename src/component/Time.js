@@ -1,7 +1,7 @@
-import styled, {css} from 'styled-components';
-import React ,{useState} from 'react';
+import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
 
-const Time = () =>{
+const Time = () => {
     const [num, setNum] = useState(3);
     const [phase, setPhase] = useState(0);
 
@@ -11,12 +11,22 @@ const Time = () =>{
 
     const [fault, setFault] = useState(0);
 
-    const handleKeyPress =(event) =>{
-        if(event.key==='Enter' && phase===2){
-            setTimetoe(Date.now());
-            setFault((Date.now()-(Timestart+2000))/1000);
-            setPhase(1);
-            console.log((Date.now()-(Timestart+2000))/1000);
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            if (phase === 2) {
+                setTimetoe(Date.now());
+                setFault((Date.now() - (Timestart + 2000)) / 1000);
+                setPhase(1);
+                console.log((Date.now() - (Timestart + 2000)) / 1000);
+            }
+
+            if(phase === 0) {
+                Timecheck();
+            }
+
+            if(phase === 1){
+                Setdata();
+            }
         }
     }
 
@@ -36,7 +46,7 @@ const Time = () =>{
         }
     }
 
-    const Setdata = () =>{
+    const Setdata = () => {
         setNum(3);
         setPhase(0);
         setTimestart(0);
@@ -45,30 +55,30 @@ const Time = () =>{
         setFault(0);
     }
 
-    return(
+    return (
         <>
-        {phase===0
-            ?<Num color={"gray"}>{num}</Num>
-            :<Num>{num}</Num>
-        }
-        <Entertext>1초에 맞춰 엔터를 눌러보세요</Entertext>
-        <Nameinput placeholder={"2300 홍길동 00쪽 00번"} onKeyPress={handleKeyPress}></Nameinput>
-        <Faulttime>
-            {phase===1
-                ?<>{fault > 0
-                    ?<><Evaltext>조금 느렸습니다!</Evaltext><Colortext color={"#00FF2B"}>+{fault}</Colortext></>
-                    :<>{fault === 0
-                        ?<><Evaltext>완벽합니다!</Evaltext><Colortext color={"#006DFF"}>{fault}</Colortext></>
-                        :<><Evaltext>조금 빨랐습니다!</Evaltext><Colortext color={"#FF0000"}>{fault}</Colortext></>
-                    }</>
-                }</>
-                :<Blacktext><Evaltext color={"black"}>ㅁㄴㅇ</Evaltext>Hi</Blacktext>
+            {phase === 0
+                ? <Num color={"gray"}>{num}</Num>
+                : <Num>{num}</Num>
             }
-        </Faulttime>
-        {phase === 1
-            ?<Startbutton onClick={Setdata}>다시하기</Startbutton>
-            :<Startbutton onClick={Timecheck}>시작하기</Startbutton>
-        }
+            <Entertext>1초에 맞춰 엔터를 눌러보세요</Entertext>
+            <Nameinput placeholder={"2300 홍길동 00쪽 00번"} onKeyPress={handleKeyPress}></Nameinput>
+            <Faulttime>
+                {phase === 1
+                    ? <>{fault > 0
+                        ? <><Evaltext>조금 느렸습니다!</Evaltext><Colortext color={"#00FF2B"}>+{fault}</Colortext></>
+                        : <>{fault === 0
+                            ? <><Evaltext>완벽합니다!</Evaltext><Colortext color={"#006DFF"}>{fault}</Colortext></>
+                            : <><Evaltext>조금 빨랐습니다!</Evaltext><Colortext color={"#FF0000"}>{fault}</Colortext></>
+                        }</>
+                    }</>
+                    : <Blacktext><Evaltext color={"black"}>ㅁㄴㅇ</Evaltext>Hi</Blacktext>
+                }
+            </Faulttime>
+            {phase === 1
+                ? <Startbutton onClick={Setdata}>다시하기</Startbutton>
+                : <Startbutton onClick={Timecheck}>시작하기</Startbutton>
+            }
         </>
     )
 }
@@ -84,7 +94,7 @@ const Num = styled.div`
     color:white;
     font-size:150px;
     margin-top:50px;
-    ${({color}) => color && css`
+    ${({ color }) => color && css`
         color: ${color};
     `};
 `;
@@ -121,12 +131,12 @@ const Faulttime = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`; 
+`;
 
 const Evaltext = styled.div`
     font-size:25px;
     color:gray;
-    ${({color}) => color && css`
+    ${({ color }) => color && css`
         color: ${color};
     `};
     font-family: 'Nanum Gothic Coding', monospace;
@@ -137,7 +147,7 @@ const Blacktext = styled.div`
 `
 
 const Colortext = styled.div`
-    ${({color}) => color && css`
+    ${({ color }) => color && css`
         color: ${color};
     `};
 `;
