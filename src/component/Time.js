@@ -51,6 +51,7 @@ const Time = () =>{
             ?<Num color={"gray"}>{num}</Num>
             :<Num>{num}</Num>
         }
+        <Entertext>1초에 맞춰 엔터를 눌러보세요</Entertext>
         <Nameinput placeholder={"2300 홍길동 00쪽 00번"} onKeyPress={handleKeyPress}></Nameinput>
         <Faulttime>
             {phase===1
@@ -72,6 +73,13 @@ const Time = () =>{
     )
 }
 
+const Entertext = styled.div`
+    margin-top:50px;
+    font-size:18px;
+    color:gray;
+    letter-spacing:2px;
+`;
+
 const Num = styled.div`
     color:white;
     font-size:150px;
@@ -82,7 +90,7 @@ const Num = styled.div`
 `;
 
 const Nameinput = styled.input`
-    margin-top:70px;
+    margin-top:10px;
     width:400px;
     height:50px;
     border-radius:15px;
